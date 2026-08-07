@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flood Prediction</title>
+<style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background:#0f172a; color:#e2e8f0; margin:0; padding:40px; }
+    .card { max-width:520px; margin:0 auto; background:#1e293b; border-radius:12px; padding:32px; box-shadow:0 8px 24px rgba(0,0,0,.4); }
+    h1 { text-align:center; font-size:1.5rem; margin-bottom:4px; }
+    p.sub { text-align:center; color:#94a3b8; margin-top:0; margin-bottom:24px; }
+    label { display:block; font-size:0.85rem; margin-top:12px; margin-bottom:4px; color:#cbd5e1; }
+    input { width:100%; padding:8px 10px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:#e2e8f0; box-sizing:border-box; }
+    button { width:100%; margin-top:22px; padding:12px; border:none; border-radius:8px; background:#2563eb; color:white; font-size:1rem; cursor:pointer; }
+    button:hover { background:#1d4ed8; }
+    .result { margin-top:24px; padding:16px; border-radius:8px; text-align:center; font-weight:600; }
+    .flood { background:#7f1d1d; color:#fecaca; }
+    .noflood { background:#14532d; color:#bbf7d0; }
+</style>
+</head>
+<body>
+<div class="card">
+    <h1>🌊 Flood Prediction</h1>
+    <p class="sub">Enter the meteorological readings below</p>
+    <form action="/predict" method="post">
+        {% for f in features %}
+        <label for="{{ f }}">{{ f }}</label>
+        <input type="number" step="any" name="{{ f }}" id="{{ f }}" required>
+        {% endfor %}
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if result %}
+        <div class="result {{ 'flood' if 'Likely' in result.label else 'noflood' }}">
+            {{ result.label }}
+            {% if result.probability is not none %}
+                <br><span style="font-weight:400; font-size:0.85rem;">Probability: {{ result.probability }}%</span>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

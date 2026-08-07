@@ -1,0 +1,17 @@
+Model: XGBoost
+Accuracy: 0.8333
+ROC-AUC: 0.9141
+
+Confusion Matrix:
+[[26  6]
+ [ 4 24]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.87      0.81      0.84        32
+           1       0.80      0.86      0.83        28
+
+    accuracy                           0.83        60
+   macro avg       0.83      0.83      0.83        60
+weighted avg       0.84      0.83      0.83        60
