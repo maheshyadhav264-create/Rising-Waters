@@ -1,0 +1,10 @@
+Best Model: Random Forest
+
+              precision    recall  f1-score   support
+
+    No Flood       0.80      0.86      0.83       120
+       Flood       0.85      0.79      0.82       120
+
+    accuracy                           0.82       240
+   macro avg       0.83      0.82      0.82       240
+weighted avg       0.83      0.82      0.82       240
