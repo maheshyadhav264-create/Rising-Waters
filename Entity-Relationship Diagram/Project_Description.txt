@@ -1,0 +1,36 @@
+Project: Human Development Index (HDI) Prediction System
+
+Project Task: Create the Entity Relationship (ER) Diagram
+
+Objective:
+Design an Entity Relationship (ER) Diagram for the Human Development Index (HDI) Prediction System based on the provided entities and relationships. The diagram represents how system components interact and how data is organized for prediction, reporting, and user management.
+
+Entities:
+
+1. User (user_id, name, email, role, created_at)
+2. Country (country_id)
+3. HDI Input Data (input_id)
+4. ML Model (model_id)
+5. HDI Prediction (prediction_id)
+6. Dataset (dataset_id)
+7. Visualization Report (report_id)
+8. Session (session_id)
+
+Relationships:
+
+* User → HDI Input Data (1 : Many)
+* Country → HDI Input Data (1 : Many)
+* HDI Input Data → HDI Prediction (1 : 1)
+* ML Model → HDI Prediction (1 : Many)
+* HDI Prediction → Visualization Report (1 : Many)
+* Dataset → ML Model (1 : Many)
+* User → Session (1 : Many)
+
+Project Deliverables:
+
+* ER Diagram (PNG)
+* GitHub Repository
+* Supporting Screenshots
+* Project Documentation
+
+This project demonstrates database design and relationship mapping for an HDI prediction workflow using machine learning concepts and structured data management.
