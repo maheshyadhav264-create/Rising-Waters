@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Flood Risk Assessment — FloodWatch Station{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Live model · station online</div>
+      <h1>Enter today's readings, get a flood risk assessment.</h1>
+      <p>This console runs field readings — rainfall, river discharge, terrain and infrastructure
+         factors — through a trained machine learning model to estimate flood risk for a location.</p>
+      <div class="stat-chips">
+        <span class="chip">Model <b>{{ model_name }}</b></span>
+        <span class="chip">Accuracy <b>{{ (metrics.Accuracy * 100) | round(1) }}%</b></span>
+        <span class="chip">ROC-AUC <b>{{ metrics.ROC_AUC }}</b></span>
+      </div>
+    </div>
+    <div class="hero-gauge-card">
+      <div class="label">Station Checklist</div>
+      <ul>
+        <li><span>Meteorological readings</span><span>4 fields</span></li>
+        <li><span>Hydrological readings</span><span>3 fields</span></li>
+        <li><span>Terrain &amp; land use</span><span>3 fields</span></li>
+        <li><span>Infrastructure &amp; history</span><span>5 fields</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+  <div class="wrap">
+    <div class="section-heading">
+      <h2>Site Assessment Form</h2>
+      <span class="count">15 inputs</span>
+    </div>
+    <p class="section-intro">Fill in the readings for the location you're assessing. Typical / average
+       values are pre-filled — adjust them to match your site.</p>
+
+    <form action="{{ url_for('predict') }}" method="POST" class="panel">
+      {% for group in groups %}
+      <fieldset class="field-group">
+        <legend><span class="idx">{{ loop.index }}</span> {{ group.title }}</legend>
+        <div class="field-grid">
+          {% for f in group.fields %}
+          <div class="field">
+            <label for="{{ f.name }}">{{ f.label }}</label>
+            {% if f.type == 'select' %}
+            <select id="{{ f.name }}" name="{{ f.name }}" required>
+              {% for opt in f.options %}
+              <option value="{{ opt }}">{{ opt }}</option>
+              {% endfor %}
+            </select>
+            {% else %}
+            <input type="number" id="{{ f.name }}" name="{{ f.name }}"
+                   min="{{ f.min }}" max="{{ f.max }}" step="{{ f.step }}" value="{{ f.default }}" required />
+            <span class="hint">Range {{ f.min }}–{{ f.max }}</span>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+      {% endfor %}
+
+      <div class="submit-row">
+        <button type="submit" class="btn btn-primary">Run Assessment</button>
+        <span class="submit-note">Prediction runs instantly, on this device.</span>
+      </div>
+    </form>
+  </div>
+</main>
+
+{% endblock %}

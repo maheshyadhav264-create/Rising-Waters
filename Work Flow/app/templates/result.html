@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Assessment Result — FloodWatch Station{% endblock %}
+{% block content %}
+
+<main class="main">
+  <div class="wrap">
+
+    {% if error %}
+    <div class="section-heading"><h2>Assessment could not be completed</h2></div>
+    <div class="panel error-panel">
+      Station could not process this reading: {{ error }}
+    </div>
+    <div class="action-row" style="margin-top:22px;">
+      <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Form</a>
+    </div>
+
+    {% else %}
+    <div class="section-heading">
+      <h2>Assessment Result</h2>
+      <span class="count">station reading complete</span>
+    </div>
+    <p class="section-intro">Based on the submitted readings, the model below estimates the
+       probability of a flood event at this location.</p>
+
+    <div class="result-grid">
+      <div class="panel gauge-panel {{ risk_class }}">
+        <div class="label">Flood Probability</div>
+        <div class="gauge-tube">
+          <div class="gauge-ticks"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="gauge-fill" style="height: {{ probability }}%;"></div>
+        </div>
+        <span class="risk-tag">{{ risk_level }}</span>
+        <div class="probability">{{ probability }}%</div>
+        <div class="probability-sub">predicted by {{ model_name }}</div>
+      </div>
+
+      <div class="panel result-detail">
+        <h2>{% if prediction == 1 %}Flood risk detected{% else %}No significant flood risk{% endif %}</h2>
+        <p class="model-note">
+          The {{ model_name }} model classified this site as
+          <strong>{{ "likely to flood" if prediction == 1 else "unlikely to flood" }}</strong>,
+          with a {{ probability }}% estimated probability — placing it in the
+          <strong>{{ risk_level }}</strong> band.
+        </p>
+
+        <table class="readout-table">
+          {% for key, value in input_values.items() %}
+          <tr>
+            <td>{{ key.replace('_', ' ') }}</td>
+            <td>{{ value }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <div class="action-row">
+          <a href="{{ url_for('index') }}" class="btn btn-primary">New Assessment</a>
+          <a href="{{ url_for('about') }}" class="btn btn-ghost">View Model Report</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</main>
+
+{% endblock %}

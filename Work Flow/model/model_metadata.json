@@ -1,0 +1,63 @@
+{
+  "best_model_name": "XGBoost",
+  "uses_scaled_input": false,
+  "feature_order": [
+    "MonsoonIntensity",
+    "Rainfall_mm",
+    "Temperature_C",
+    "Humidity_pct",
+    "River_Discharge_m3s",
+    "Water_Level_m",
+    "Elevation_m",
+    "Land_Cover",
+    "Soil_Type",
+    "Population_Density",
+    "Infrastructure_Quality",
+    "Drainage_Quality_Score",
+    "Historical_Floods_Count",
+    "Deforestation_Index",
+    "Climate_Change_Index"
+  ],
+  "categorical_columns": [
+    "Land_Cover",
+    "Soil_Type",
+    "Infrastructure_Quality"
+  ],
+  "metrics": {
+    "Accuracy": 0.8383,
+    "Precision": 0.8251,
+    "Recall": 0.6991,
+    "F1_Score": 0.7569,
+    "ROC_AUC": 0.9063
+  },
+  "all_model_results": {
+    "Decision Tree": {
+      "Accuracy": 0.7542,
+      "Precision": 0.6827,
+      "Recall": 0.5926,
+      "F1_Score": 0.6344,
+      "ROC_AUC": 0.7772
+    },
+    "Random Forest": {
+      "Accuracy": 0.8158,
+      "Precision": 0.8651,
+      "Recall": 0.5787,
+      "F1_Score": 0.6935,
+      "ROC_AUC": 0.8893
+    },
+    "KNN": {
+      "Accuracy": 0.7683,
+      "Precision": 0.777,
+      "Recall": 0.5,
+      "F1_Score": 0.6085,
+      "ROC_AUC": 0.8288
+    },
+    "XGBoost": {
+      "Accuracy": 0.8383,
+      "Precision": 0.8251,
+      "Recall": 0.6991,
+      "F1_Score": 0.7569,
+      "ROC_AUC": 0.9063
+    }
+  }
+}

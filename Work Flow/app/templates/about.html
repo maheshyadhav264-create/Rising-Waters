@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Model Report — FloodWatch Station{% endblock %}
+{% block content %}
+
+<main class="main">
+  <div class="wrap">
+    <div class="section-heading">
+      <h2>Model Report</h2>
+      <span class="count">4 models evaluated</span>
+    </div>
+    <p class="section-intro">Four classifiers were trained and evaluated on a held-out test split.
+       <strong>{{ model_name }}</strong> was selected for deployment based on F1-score, which
+       balances missed floods against false alarms.</p>
+
+    <table class="metrics-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Accuracy</th>
+          <th>Precision</th>
+          <th>Recall</th>
+          <th>F1-Score</th>
+          <th>ROC-AUC</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for name, m in all_results.items() %}
+        <tr class="{{ 'best-row' if name == model_name else '' }}">
+          <td>{{ name }}{% if name == model_name %} ✓{% endif %}</td>
+          <td>{{ m.Accuracy }}</td>
+          <td>{{ m.Precision }}</td>
+          <td>{{ m.Recall }}</td>
+          <td>{{ m.F1_Score }}</td>
+          <td>{{ m.ROC_AUC }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <figure class="report-figure">
+      <img src="{{ url_for('static', filename='img/model_comparison_chart.png') }}" alt="Bar chart comparing accuracy, precision, recall, F1 and ROC-AUC across all four models" />
+      <figcaption>Fig. 1 — Accuracy, precision, recall, F1-score and ROC-AUC across all four models.</figcaption>
+    </figure>
+
+    <figure class="report-figure">
+      <img src="{{ url_for('static', filename='img/roc_curves.png') }}" alt="ROC curves for all four models" />
+      <figcaption>Fig. 2 — ROC curves; {{ model_name }} shows the strongest separation between classes.</figcaption>
+    </figure>
+
+    <figure class="report-figure">
+      <img src="{{ url_for('static', filename='img/feature_importance.png') }}" alt="Top feature importances for the deployed model" />
+      <figcaption>Fig. 3 — Top features driving {{ model_name }}'s predictions.</figcaption>
+    </figure>
+
+    <div class="action-row">
+      <a href="{{ url_for('index') }}" class="btn btn-primary">Run an Assessment</a>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
