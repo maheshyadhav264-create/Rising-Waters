@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floods Prediction | No Flood Risk</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body class="result-page result-safe">
+
+<nav class="navbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 2c-4 5.5-7 9.3-7 13a7 7 0 0 0 14 0c0-3.7-3-7.5-7-13z"/></svg>
+    </span>
+    Floods Prediction
+  </div>
+  <div class="nav-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('index') }}">Predict Floods</a>
+  </div>
+</nav>
+
+<main class="result-wrap">
+  <div class="result-card">
+    <div class="result-icon" aria-hidden="true">✓</div>
+    <span class="result-tag">Low Risk</span>
+    <h1>No significant flood risk</h1>
+    <p class="result-sub">
+      Based on the readings you entered, the model estimates roughly
+      <strong>{{ probability }}%</strong> confidence conditions stay safe.
+    </p>
+
+    <div class="meter">
+      <div class="meter-fill" style="width: {{ probability }}%;"></div>
+    </div>
+
+    <ul class="advice-list">
+      <li>Conditions look stable — no immediate action needed.</li>
+      <li>Keep an eye on official forecasts if rainfall intensifies.</li>
+      <li>Re-run the predictor whenever new rainfall figures come in.</li>
+    </ul>
+
+    <a href="{{ url_for('index') }}" class="btn btn-outline">Run another prediction</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>Floods Prediction — a demo hydrological ML application.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floods Prediction | Home</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 2c-4 5.5-7 9.3-7 13a7 7 0 0 0 14 0c0-3.7-3-7.5-7-13z"/></svg>
+    </span>
+    Floods Prediction
+  </div>
+  <div class="nav-links">
+    <a href="{{ url_for('home') }}" class="active">Home</a>
+    <a href="{{ url_for('index') }}">Predict Floods</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-overlay"></div>
+  <div class="rain" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="eyebrow">Real-time hydrological risk model</p>
+    <h1>Know the water level<br>before it rises.</h1>
+    <p class="hero-sub">A machine-learning model that reads rainfall and cloud-cover
+      patterns to flag flood risk before it becomes an emergency.</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Predict Floods →</a>
+  </div>
+</header>
+
+<main class="content">
+  <section class="intro">
+    <span class="section-label">01 — Introduction</span>
+    <h2>Why flood forecasting matters</h2>
+    <p>
+      Flood forecasting is the use of forecasted precipitation and streamflow
+      data, together with rainfall-runoff and streamflow-routing models, to
+      forecast flow rates and water levels for periods ranging from a few
+      hours to several days ahead, depending on the size of the watershed or
+      river basin. Flood forecasting is a key component of flood warning: the
+      forecast builds the profile of expected channel flows or river levels
+      at a given location, while <em>warning</em> is the task of using those
+      forecasts to communicate decisions and alerts.
+    </p>
+    <p>
+      Real-time flood forecasting at a regional scale can be made available
+      within seconds using the technology of artificial neural networks and
+      gradient-boosted trees. Effective real-time forecasting models like
+      this one are useful for early warning and disaster prevention —
+      giving communities and emergency services a critical head start.
+    </p>
+  </section>
+
+  <section class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">☁</div>
+      <h3>Cloud Cover</h3>
+      <p>Percentage sky coverage, a leading indicator of incoming precipitation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌧</div>
+      <h3>Seasonal Rainfall</h3>
+      <p>Jan–Feb, Mar–May and Jun–Sep totals capture the shape of the season.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📈</div>
+      <h3>Annual Rainfall</h3>
+      <p>Total yearly precipitation, the backbone signal for basin saturation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Instant Result</h3>
+      <p>A trained model returns a flood / no-flood call in well under a second.</p>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Enter this season's numbers, get a risk read.</h2>
+    <a href="{{ url_for('index') }}" class="btn btn-outline">Go to Predictor</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>Floods Prediction — a demo hydrological ML application.</p>
+</footer>
+
+</body>
+</html>

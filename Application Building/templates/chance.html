@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floods Prediction | Flood Risk</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body class="result-page result-danger">
+
+<nav class="navbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 2c-4 5.5-7 9.3-7 13a7 7 0 0 0 14 0c0-3.7-3-7.5-7-13z"/></svg>
+    </span>
+    Floods Prediction
+  </div>
+  <div class="nav-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('index') }}">Predict Floods</a>
+  </div>
+</nav>
+
+<main class="result-wrap">
+  <div class="result-card">
+    <div class="result-icon" aria-hidden="true">⚠</div>
+    <span class="result-tag">High Risk</span>
+    <h1>Flood likely in your area</h1>
+    <p class="result-sub">
+      Based on the readings you entered, the model estimates roughly
+      <strong>{{ probability }}%</strong> confidence of flood conditions.
+    </p>
+
+    <div class="meter">
+      <div class="meter-fill" style="width: {{ probability }}%;"></div>
+    </div>
+
+    <ul class="advice-list">
+      <li>Move valuables and vehicles to higher ground.</li>
+      <li>Monitor official local flood-warning channels.</li>
+      <li>Prepare an emergency kit and review evacuation routes.</li>
+      <li>Avoid driving or walking through moving flood water.</li>
+    </ul>
+
+    <a href="{{ url_for('index') }}" class="btn btn-outline">Run another prediction</a>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>Floods Prediction — a demo hydrological ML application.</p>
+</footer>
+
+</body>
+</html>
