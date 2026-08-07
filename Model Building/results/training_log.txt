@@ -1,0 +1,101 @@
+
+========== DECISION TREE MODEL BUILDING ==========
+[INFO] DecisionTreeClassifier initialized.
+[INFO] Model training completed.
+[INFO] Prediction completed on test data.
+
+[RESULT] Accuracy : 0.7750
+
+Confusion Matrix:
+[[143  25]
+ [ 29  43]]
+
+Classification Report:
+
+              precision    recall  f1-score   support
+
+           0       0.83      0.85      0.84       168
+           1       0.63      0.60      0.61        72
+
+    accuracy                           0.78       240
+   macro avg       0.73      0.72      0.73       240
+weighted avg       0.77      0.78      0.77       240
+
+
+========== RANDOM FOREST MODEL BUILDING ==========
+[INFO] RandomForestClassifier initialized with n_estimators=100, random_state=42
+[INFO] Model training completed.
+[INFO] Prediction completed on test data.
+
+[RESULT] Accuracy : 0.8542
+
+Confusion Matrix:
+[[159   9]
+ [ 26  46]]
+
+Classification Report:
+
+              precision    recall  f1-score   support
+
+           0       0.86      0.95      0.90       168
+           1       0.84      0.64      0.72        72
+
+    accuracy                           0.85       240
+   macro avg       0.85      0.79      0.81       240
+weighted avg       0.85      0.85      0.85       240
+
+
+========== KNN MODEL BUILDING ==========
+[INFO] KNN model training completed.
+[INFO] Prediction completed on test data.
+
+[RESULT] Accuracy: 0.8416666666666667
+
+Confusion Matrix::
+[[158  10]
+ [ 28  44]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.85      0.94      0.89       168
+           1       0.81      0.61      0.70        72
+
+    accuracy                           0.84       240
+   macro avg       0.83      0.78      0.80       240
+weighted avg       0.84      0.84      0.83       240
+
+
+========== XGBOOST MODEL BUILDING ==========
+[INFO] XGBoost model training completed.
+[INFO] Prediction completed on test data.
+
+[RESULT] Accuracy: 0.875
+
+Confusion Matrix:
+[[159   9]
+ [ 21  51]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.88      0.95      0.91       168
+           1       0.85      0.71      0.77        72
+
+    accuracy                           0.88       240
+   macro avg       0.87      0.83      0.84       240
+weighted avg       0.87      0.88      0.87       240
+
+
+========== MODEL COMPARISON ==========
+Model               Accuracy    Precision   Recall      
+Decision Tree       0.7750      0.6324      0.5972      
+Random Forest       0.8542      0.8364      0.6389      
+KNN                 0.8417      0.8148      0.6111      
+XGBoost             0.8750      0.8500      0.7083      
+
+[RESULT] Best performing model: XGBoost
+
+[INFO] Saved trained XGBoost model -> models/floods.save
+[INFO] Saved fitted StandardScaler -> models/transform.save
+[INFO] (Best model by accuracy was: XGBoost)

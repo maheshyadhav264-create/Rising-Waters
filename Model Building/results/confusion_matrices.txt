@@ -1,0 +1,60 @@
+
+===== Decision Tree =====
+Confusion Matrix:
+[[143  25]
+ [ 29  43]]
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.83      0.85      0.84       168
+           1       0.63      0.60      0.61        72
+
+    accuracy                           0.78       240
+   macro avg       0.73      0.72      0.73       240
+weighted avg       0.77      0.78      0.77       240
+
+
+===== Random Forest =====
+Confusion Matrix:
+[[159   9]
+ [ 26  46]]
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.86      0.95      0.90       168
+           1       0.84      0.64      0.72        72
+
+    accuracy                           0.85       240
+   macro avg       0.85      0.79      0.81       240
+weighted avg       0.85      0.85      0.85       240
+
+
+===== KNN =====
+Confusion Matrix:
+[[158  10]
+ [ 28  44]]
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.85      0.94      0.89       168
+           1       0.81      0.61      0.70        72
+
+    accuracy                           0.84       240
+   macro avg       0.83      0.78      0.80       240
+weighted avg       0.84      0.84      0.83       240
+
+
+===== XGBoost =====
+Confusion Matrix:
+[[159   9]
+ [ 21  51]]
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.88      0.95      0.91       168
+           1       0.85      0.71      0.77        72
+
+    accuracy                           0.88       240
+   macro avg       0.87      0.83      0.84       240
+weighted avg       0.87      0.88      0.87       240
+

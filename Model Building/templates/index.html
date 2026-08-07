@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flood Prediction System</title>
+<style>
+  :root {
+    --deep: #0b2039;
+    --river: #12406b;
+    --tide: #1c6ea4;
+    --foam: #eaf4fb;
+    --alert: #c94b3f;
+    --safe: #2f8f6b;
+    --ink: #0b2039;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: linear-gradient(180deg, var(--deep) 0%, var(--river) 100%);
+    color: var(--foam);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+  }
+  .card {
+    background: rgba(234, 244, 251, 0.04);
+    border: 1px solid rgba(234, 244, 251, 0.15);
+    border-radius: 4px;
+    max-width: 620px;
+    width: 100%;
+    padding: 36px 40px 40px;
+    backdrop-filter: blur(6px);
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    color: var(--tide);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-weight: 400;
+    font-size: 30px;
+    margin: 0 0 4px;
+    line-height: 1.2;
+  }
+  .sub {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    color: rgba(234, 244, 251, 0.6);
+    margin-bottom: 28px;
+  }
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+  }
+  .field { display: flex; flex-direction: column; }
+  label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(234, 244, 251, 0.55);
+    margin-bottom: 6px;
+  }
+  input {
+    background: rgba(11, 32, 57, 0.6);
+    border: 1px solid rgba(234, 244, 251, 0.25);
+    border-radius: 2px;
+    padding: 9px 10px;
+    color: var(--foam);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+  }
+  input:focus {
+    outline: 2px solid var(--tide);
+    outline-offset: 1px;
+  }
+  button {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+    background: var(--tide);
+    color: var(--foam);
+    border: none;
+    padding: 13px 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  button:hover { background: #2381bd; }
+  .result {
+    margin-top: 26px;
+    padding: 18px 20px;
+    border-radius: 2px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .result.flood { background: rgba(201, 75, 63, 0.18); border: 1px solid var(--alert); }
+  .result.safe { background: rgba(47, 143, 107, 0.18); border: 1px solid var(--safe); }
+  .result .headline { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
+  .result .prob { font-size: 12px; color: rgba(234, 244, 251, 0.7); }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="eyebrow">Flood Risk Model &middot; XGBoost</div>
+    <h1>Flood Prediction System</h1>
+    <div class="sub">Enter current hydrological and weather readings to estimate flood risk.</div>
+
+    <form method="POST" action="/predict">
+      <div class="field">
+        <label for="rainfall_mm">Rainfall (mm)</label>
+        <input type="number" step="any" id="rainfall_mm" name="rainfall_mm" required>
+      </div>
+      <div class="field">
+        <label for="water_level_m">Water Level (m)</label>
+        <input type="number" step="any" id="water_level_m" name="water_level_m" required>
+      </div>
+      <div class="field">
+        <label for="humidity_pct">Humidity (%)</label>
+        <input type="number" step="any" id="humidity_pct" name="humidity_pct" required>
+      </div>
+      <div class="field">
+        <label for="temperature_c">Temperature (&deg;C)</label>
+        <input type="number" step="any" id="temperature_c" name="temperature_c" required>
+      </div>
+      <div class="field">
+        <label for="river_discharge_m3s">River Discharge (m&sup3;/s)</label>
+        <input type="number" step="any" id="river_discharge_m3s" name="river_discharge_m3s" required>
+      </div>
+      <div class="field">
+        <label for="elevation_m">Elevation (m)</label>
+        <input type="number" step="any" id="elevation_m" name="elevation_m" required>
+      </div>
+      <div class="field">
+        <label for="drainage_quality">Drainage Quality (1&ndash;5)</label>
+        <input type="number" step="1" min="1" max="5" id="drainage_quality" name="drainage_quality" required>
+      </div>
+      <div class="field">
+        <label for="upstream_dam_release">Upstream Dam Release</label>
+        <input type="number" step="any" id="upstream_dam_release" name="upstream_dam_release" required>
+      </div>
+
+      <button type="submit">Predict Flood Risk</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result {{ 'flood' if 'FLOOD LIKELY' in prediction else 'safe' }}">
+      <div class="headline">{{ prediction }}</div>
+      {% if probability %}
+      <div class="prob">Model confidence (flood probability): {{ probability }}</div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
